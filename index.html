@@ -12,17 +12,24 @@
     <a href="#" id="gameLink" class="btn">開啟遊戲</a>
 
     <script>
+        // 1. 取得網址列參數
         const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code') || '';
+        const rawCode = urlParams.get('code') || ''; 
+    
+        // 2. 使用 encodeURIComponent 保護參數
+        // 這會把特殊字元轉成網址安全格式，防止連結斷掉或出現 &amp;
+        const safeCode = encodeURIComponent(rawCode);
+    
+        // 3. 組合完整的 Deep Link
+        // 注意：這裡的 & 符號在 JS 字符串中是安全的，不會被轉成 &amp;
+        const finalLink = `gameplapp://gameplhost/deeplink?type=1&action=web&code=${safeCode}`;
         
-        // 這裡我們手動拼湊連結，避免被自動編碼
-        const baseUrl = "gameplapp://gameplhost/deeplink";
-        const finalLink = `${baseUrl}?type=1&action=web&code=${code}`;
-        
-        // 設定到按鈕
-        document.getElementById('gameLink').href = finalLink;
-
-        window.location.href = finalLink;
+        // 4. 更新按鈕連結
+        const linkBtn = document.getElementById('gameLink');
+        linkBtn.href = finalLink;
+    
+        // 5. (選用) 如果你想讓頁面載入後「自動嘗試開啟」App，取消下面這行註解：
+         window.location.href = finalLink;
     </script>
 </body>
 </html>
