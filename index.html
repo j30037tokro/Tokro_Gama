@@ -12,18 +12,17 @@
     <a href="#" id="gameLink" class="btn">開啟遊戲</a>
 
     <script>
-        // 1. 取得當前網址後的參數 (例如 ?code=A123)
         const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code') || ''; // 如果沒輸入 code，預設為空
-
-        // 2. 自動組合你的完整 Deep Link
-        const finalLink = `gameplapp://gameplhost/deeplink?type=1&action=web&code=${code}`;
+        const code = urlParams.get('code') || '';
         
-        // 3. 把連結套用到按鈕上
+        // 這裡我們手動拼湊連結，避免被自動編碼
+        const baseUrl = "gameplapp://gameplhost/deeplink";
+        const finalLink = `${baseUrl}?type=1&action=web&code=${code}`;
+        
+        // 設定到按鈕
         document.getElementById('gameLink').href = finalLink;
-        
-        // (選用) 如果你想讓頁面打開後自動跳轉，可取消下方註解：
-         window.location.href = finalLink;
+
+        window.location.href = finalLink;
     </script>
 </body>
 </html>
