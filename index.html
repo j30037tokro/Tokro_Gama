@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>進入遊戲</title>
+    <title>遊戲入口</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
-        .btn { padding: 15px 30px; background: #007bff; color: white; text-decoration: none; border-radius: 50px; font-size: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f4f4f9; }
+        .btn { padding: 20px 40px; background: #007AFF; color: white; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 1.2rem; }
     </style>
 </head>
 <body>
-    <a href="gameplapp://gameplhost/deeplink?type=1&action=web&code=QeSdkpdEJTheP9n8R1wpsIWhxSnVR2GA6DD47tEApFgJItx2%2BaSWwsoGeD5eYhNiy9qhDMEwXQj0nb7y5UBWbPQpEwmmMfjHVAA%2ByNJVXtdGgqH4zapQezfXMcOJ%2FmOR7kcqsUHBm54oSXT8DwLGoXQOszlBBFZuq%2FSINRCeqBWH%2F4ozaGFnDkJmUoXigHVUPCvlS65Dpv1tapFTB6MxUgLWRF10oPXFEY5HGn3Vm5p3iHtXhRD6cCNMyTgHLUkA2x%2FuuI4tdf23X3ZoHbwr9Q%3D%3D" class="btn">一鍵開啟 App</a>
+    <a href="#" id="gameLink" class="btn">開啟遊戲</a>
+
+    <script>
+        // 1. 取得當前網址後的參數 (例如 ?code=A123)
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code') || ''; // 如果沒輸入 code，預設為空
+
+        // 2. 自動組合你的完整 Deep Link
+        const finalLink = `gameplapp://gameplhost/deeplink?type=1&action=web&code=${code}`;
+        
+        // 3. 把連結套用到按鈕上
+        document.getElementById('gameLink').href = finalLink;
+        
+        // (選用) 如果你想讓頁面打開後自動跳轉，可取消下方註解：
+        // window.location.href = finalLink;
+    </script>
 </body>
 </html>
